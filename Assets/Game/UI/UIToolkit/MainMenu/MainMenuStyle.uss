@@ -1,0 +1,23 @@
+.button {
+    color: rgb(216, 246, 253);
+    background-color: rgb(7, 138, 161);
+    font-size: 60px;
+    -unity-font: url('project://database/Assets/Plugins/Modern%20UI%20Pack/Fonts/OpenSans-ExtraBold.ttf?fileID=12800000&guid=122834da39c9ff3428f57bd1a15782c4&type=3#OpenSans-ExtraBold');
+    -unity-font-style: bold;
+}
+
+.settingsLabel {
+    -unity-text-align: upper-center;
+    font-size: 100px;
+    color: rgba(181, 200, 248, 255);
+}
+
+.tabButton {
+    font-size: 60px;
+    color: rgba(255, 255, 255, 255);
+    background-color: rgba(86, 98, 140, 255);
+    visibility: visible;
+    overflow: visible;
+    display: flex;
+    opacity: 1;
+}

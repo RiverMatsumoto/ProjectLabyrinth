@@ -1,0 +1,4 @@
+.Title {
+    font-size: 60px;
+    -unity-text-align: upper-center;
+}

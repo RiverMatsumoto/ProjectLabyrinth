@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Game/UI/UnityToolkit/SettingsMenuStyle.uss?fileID=7433441132597879392&amp;guid=9b8f3fc81e07b9f4bbcca852f9c3f0f6&amp;type=3#SettingsMenuStyle" />
+    <ui:VisualElement name="AudioWindow">
+        <ui:Label text="Audio" display-tooltip-when-elided="true" name="Label" class="Title" style="-unity-font: none;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="VideoWindow" style="display: none; visibility: visible; overflow: visible;">
+        <ui:Label text="Video" display-tooltip-when-elided="true" name="Label" class="Title" style="-unity-font: none;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ControlsWindow" style="display: none;">
+        <ui:Label text="Controls" display-tooltip-when-elided="true" name="Label" class="Title" style="-unity-font: none;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="GameWindow" style="display: none;">
+        <ui:Label text="Game" display-tooltip-when-elided="true" name="Label" class="Title" style="-unity-font: none;" />
+    </ui:VisualElement>
+</ui:UXML>

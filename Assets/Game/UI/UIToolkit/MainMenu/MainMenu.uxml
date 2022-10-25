@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Game/UI/UIToolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=15522df67cc2b8c4fa3f23cddd9d452e&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="MainMenu" class="button" style="margin-left: 10%; padding-left: 0; flex-basis: auto; align-items: stretch; justify-content: flex-start; background-color: rgba(0, 74, 125, 0.26); border-bottom-color: rgb(49, 79, 78); border-bottom-width: 0; border-top-width: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; top: 40%; flex-wrap: nowrap; flex-direction: column; flex-shrink: 1; opacity: 1; width: 30%; height: 30%; font-size: 24px; display: flex;">
+        <ui:Button text="Continue Game" display-tooltip-when-elided="true" name="ContinueGameButton" enable-rich-text="true" class="button" />
+        <ui:Button text="New Game" display-tooltip-when-elided="true" name="NewGameButton" class="button" />
+        <ui:Button text="Settings" display-tooltip-when-elided="true" name="SettingsButton" class="button" />
+        <ui:Button text="Quit" display-tooltip-when-elided="true" name="QuitButton" class="button" />
+    </ui:VisualElement>
+</ui:UXML>

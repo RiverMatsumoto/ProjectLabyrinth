@@ -1,0 +1,8 @@
+.interact {
+    font-size: 40px;
+    height: 100%;
+    width: 10%;
+    -unity-text-align: upper-center;
+    -unity-font-style: bold;
+    background-color: rgba(23, 113, 112, 255);
+}
