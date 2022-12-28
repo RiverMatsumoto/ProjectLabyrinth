@@ -1934,13 +1934,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -1978,6 +1984,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679359678182530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3329,14 +3336,16 @@ MonoBehaviour:
   listParent: {fileID: 0}
   soundSource: {fileID: 0}
   currentListParent: {fileID: 0}
+  listRect: {fileID: 0}
+  listCG: {fileID: 0}
+  contentCG: {fileID: 0}
   isInteractable: 1
   enableIcon: 1
   enableTrigger: 1
   enableScrollbar: 1
-  setHighPriorty: 0
   updateOnEnable: 1
   outOnPointerExit: 0
-  isListItem: 0
+  setHighPriority: 1
   invokeAtStart: 0
   initAtStart: 1
   enableDropdownSounds: 0
@@ -3349,11 +3358,33 @@ MonoBehaviour:
   itemSpacing: 8
   selectedItemIndex: 0
   animationType: 0
-  transitionSmoothness: 10
-  sizeSmoothness: 15
+  panelDirection: 0
   panelSize: 200
-  listRect: {fileID: 0}
-  listCG: {fileID: 0}
+  curveSpeed: 3
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   saveSelected: 0
   saveKey: My Dropdown
   items:
@@ -3414,6 +3445,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  onItemTextChanged:
+    m_PersistentCalls:
+      m_Calls: []
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
   isOn: 0
@@ -3421,6 +3455,7 @@ MonoBehaviour:
   siblingIndex: 0
   setItemText: {fileID: 0}
   setItemImage: {fileID: 0}
+  extendEvents: 0
 --- !u!114 &8561679359879563267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5950,13 +5985,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -5994,6 +6035,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679360162757698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6460,15 +6502,19 @@ MonoBehaviour:
   - windowName: Audio
     windowObject: {fileID: 8561679361399260810}
     buttonObject: {fileID: 0}
+    firstSelected: {fileID: 0}
   - windowName: Video
     windowObject: {fileID: 8561679361259484640}
     buttonObject: {fileID: 0}
+    firstSelected: {fileID: 0}
   - windowName: Controls
     windowObject: {fileID: 8561679360954360139}
     buttonObject: {fileID: 0}
+    firstSelected: {fileID: 0}
   - windowName: Game
     windowObject: {fileID: 8561679361492974175}
     buttonObject: {fileID: 0}
+    firstSelected: {fileID: 0}
   currentWindowIndex: 0
   cullWindows: 1
   initializeButtons: 1
@@ -8726,13 +8772,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -8770,6 +8822,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679360604014710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10341,13 +10394,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -10385,6 +10444,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679360870521467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11512,13 +11572,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -11556,6 +11622,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679361020105734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12839,13 +12906,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -12883,6 +12956,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &8561679361210959621
 MonoBehaviour:
   m_ObjectHideFlags: 0

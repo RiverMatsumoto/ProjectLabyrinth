@@ -10,22 +10,22 @@ namespace Game.Scripts.Systems
 
         public int Attack // TODO create weapons and add weapon damage to Attack and TechAttack
         {
-            get => stats.baseStrength;
+            get => stats.strength;
         }
 
         public int MagicAttack
         {
-            get => stats.baseIntelligence;
+            get => stats.intelligence;
         }
 
         public int Defense // TODO create armor and add armor defense to Defense and MDefense
         {
-            get => stats.baseVitality;
+            get => stats.vitality;
         }
 
         public int MagicDefense
         {
-            get => stats.baseWisdom;
+            get => stats.wisdom;
         }
 
         public List<ISkillCommand> KnownSkills { get; }

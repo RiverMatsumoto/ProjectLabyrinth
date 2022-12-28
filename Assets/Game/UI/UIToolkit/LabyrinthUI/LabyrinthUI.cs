@@ -26,16 +26,14 @@ namespace Game.UI.UIToolkit.LabyrinthUI
 
         private void OnEnable()
         {
-            _playerMovement.facedInteractableUpdate += ShowInteractLabel;
         }
 
         private void OnDisable()
         {
-            _playerMovement.facedInteractableUpdate -= ShowInteractLabel;
         }
 
         [Button]
-        public void ShowInteractLabel(object sender, bool isInteractable)
+        public void ShowInteractLabel(bool isInteractable)
         {
             interactLabel.visible = isInteractable;
         }

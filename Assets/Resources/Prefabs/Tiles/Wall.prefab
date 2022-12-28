@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &239139293322646581
 Transform:
@@ -52,8 +52,8 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
-  m_StaticShadowCaster: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -94,6 +94,10 @@ PrefabInstance:
     - target: {fileID: 8785296901741659267, guid: eef6f5bdf0ef4bc4c8baf113fd27d7e4, type: 3}
       propertyPath: m_Name
       value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8785296901741659267, guid: eef6f5bdf0ef4bc4c8baf113fd27d7e4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9161745311352747651, guid: eef6f5bdf0ef4bc4c8baf113fd27d7e4, type: 3}
       propertyPath: m_RootOrder

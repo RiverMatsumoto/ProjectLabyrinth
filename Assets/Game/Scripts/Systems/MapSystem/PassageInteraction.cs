@@ -1,4 +1,3 @@
-using System;
 using Game.Scripts.Core;
 using Game.Scripts.Movement;
 using Sirenix.OdinInspector;
@@ -9,13 +8,8 @@ namespace Game.Scripts.Systems.MapSystem
 {
     public class PassageInteraction : MonoBehaviour, IInteractable
     {
-        [Inject] public PlayerMovement _playerMovement;
-        private InteractionHandler _interactionHandler;
-
-        private void Start()
-        {
-            _playerMovement = FindObjectOfType<PlayerMovement>();
-        }
+        [ShowInInspector, Inject] private PlayerMovement _playerMovement;
+        [Inject] private GameData _gameData;
 
         public PassageInteraction(PlayerMovement playerMovement)
         {
@@ -24,9 +18,8 @@ namespace Game.Scripts.Systems.MapSystem
 
         public void Interact(InteractionHandler interactionHandler)
         {
-            _interactionHandler = interactionHandler;
             // screen fade and move player to the other side of the wall
-            _interactionHandler.DisableActionability();
+            _gameData.DisableActionability();
             SceneChanger.Instance.FadeScreen(MovePlayer);
         }
 
@@ -41,8 +34,6 @@ namespace Game.Scripts.Systems.MapSystem
                 Mathf.RoundToInt(currPos.z) + (localFwd.y * 2)
             );
             _playerMovement.MoveStatic(otherSide);
-            _playerMovement.CheckIfFacingInteractable();
-            _interactionHandler.EnableActionability();
         }
     }
 }

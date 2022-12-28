@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Game.Scripts.Core;
 using Game.Scripts.Movement;
+using GitHub.Unity;
+using Michsky.MUIP;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -13,20 +17,17 @@ namespace Game.Scripts.Systems.MapSystem
         [Inject] private PlayerMovement _playerMovement;
         [Inject] private TileDataList _tileDataList;
         [Inject] private GameData _gameData;
-
-        public Dictionary<string, IInteractable> interactable;
-
-        private void Start()
-        {
-            interactable = new Dictionary<string, IInteractable>();
-            // InitializeInteractables();
-        }
+        private IObservable<bool> actionabilityHistory;
+        private bool _delayedPermitPlayerActionability;
 
         [Button]
-        public void TryInteract(InputAction.CallbackContext ctx)
+        public void OnInteract(InputAction.CallbackContext ctx)
         {
-            if (!_gameData.isActionable || !ctx.started) return;
+            if (!ctx.started) return;
+            if (!_gameData.permitMovingPlayer || !_delayedPermitPlayerActionability) return;
+            UnityEngine.Debug.Log("Interacted");
 
+            // Check whether the tile in front is interactable
             RaycastHit hit;
             Vector3 playerPosition = _playerMovement.transform.position;
             Vector3 playerForward = _playerMovement.transform.forward;
@@ -40,49 +41,23 @@ namespace Game.Scripts.Systems.MapSystem
             }
         }
 
-        /// <summary>
-        /// Initializes the interactable tiles
-        /// </summary>
-        // private void InitializeInteractables()
-        // {
-        //     foreach (var tileDict in _tileDataList.tiles)
-        //     {
-        //         GameTile gameTile = tileDict.Value;
-        //         switch (gameTile.name)
-        //         {
-        //             case "Passage":
-        //                 // PassageTile passageTile = new PassageTile(_playerMovement, this);
-        //                 // interactable.Add(gameTile.name, passageTile);
-        //                 break;
-        //             case "Chest": // TODO create chest functionality (needs inventory system too)
-        //                 break;
-        //         }
-        //     }
-        // }
-        //
-        // // called by PlayerInput component
-        // [Button]
-        // public void Interact(InputAction.CallbackContext ctx)
-        // {
-        //     if (!ctx.started || !_gameData.isActionable) return;
-        //
-        //     string tileName = _playerMovement.GetTileInFrontOfPlayer().name;
-        //     if (interactable.ContainsKey(tileName))
-        //     {
-        //         DisableActionability();
-        //         interactable[tileName].Interact();
-        //     }
-        // }
-
-
-        public void DisableActionability()
+        private void Start()
         {
-            _gameData.DisableActionability();
-        }
+            actionabilityHistory = Observable.Create<bool>(
+                (observer) =>
+                {
+                    IDisposable emitter = Observable
+                        .EveryUpdate()
+                        .Subscribe((_) =>
+                        {
+                            observer.OnNext(_gameData.permitMovingPlayer);
+                        });
 
-        public void EnableActionability()
-        {
-            _gameData.EnableActionability();
+                    return emitter;
+                });
+
+            actionabilityHistory.Delay(TimeSpan.FromMilliseconds(20))
+                .Subscribe(next => _delayedPermitPlayerActionability = next);
         }
     }
 }

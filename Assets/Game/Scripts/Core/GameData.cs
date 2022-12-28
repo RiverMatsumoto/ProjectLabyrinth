@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Game.Scripts.Core
@@ -8,26 +9,16 @@ namespace Game.Scripts.Core
     {
         public int currentFloor;
         public bool isInBattle;
-        public bool permitOpenPlayerMenu;
-        public bool isInPlayerMenu;
-        public bool permitPlayerMove;
-        public bool playerIsMoving;
-        public bool isActionable { get; private set; }
-
-        public void EnableActionability() => isActionable = true;
-
-        public void DisableActionability() => isActionable = false;
+        [OdinSerialize] public bool permitMovingPlayer { get; private set; }
+        public void EnableActionability() => permitMovingPlayer = true;
+        public void DisableActionability() => permitMovingPlayer = false;
 
         [Button]
         public void SetDefaults()
         {
             currentFloor = 1;
             isInBattle = false;
-            permitOpenPlayerMenu = true;
-            isInPlayerMenu = false;
-            permitPlayerMove = true;
-            playerIsMoving = false;
-            isActionable = true;
+            permitMovingPlayer = true;
         }
     }
 }

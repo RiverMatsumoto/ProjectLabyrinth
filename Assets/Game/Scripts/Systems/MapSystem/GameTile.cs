@@ -14,23 +14,10 @@ namespace Game.Scripts.Systems.MapSystem
         public bool isLocked;
         public IInteractable interactable;
 
-        public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
-        {
-            base.GetTileData(position, tilemap, ref tileData);
-        }
-
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
         {
-            // tilemap.GetTileFlags(position) = TileFlags.None;
+            flags = TileFlags.InstantiateGameObjectRuntimeOnly;
             return base.StartUp(position, tilemap, go);
-        }
-
-        public struct EnterableDirections
-        {
-            public bool Top;
-            public bool Bottom;
-            public bool Left;
-            public bool Right;
         }
     }
 }

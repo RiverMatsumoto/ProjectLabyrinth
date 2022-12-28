@@ -9,6 +9,6 @@ public class VolumeSlider : MonoBehaviour
 
     public void SetVolume()
     {
-        _settingsData.SetVolume(_slider.value);
+        // _settingsData.SetVolume(_slider.value);
     }
 }

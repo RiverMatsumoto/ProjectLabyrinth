@@ -1,3 +1,6 @@
+#if UNITY_EDITOR
+using Sirenix.OdinInspector;
+#endif
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,5 +26,16 @@ namespace Game.UI.MainMenu
         public void OnPointerClick(PointerEventData eventData) => _sequence.PlayForward();
         
         public void FinishSubmit() => _sequence.PlayBackwards();
+        
+#if UNITY_EDITOR
+        [Button]
+        public void RefreshAnimationSequence()
+        {
+            Vector3 originalScale = transform.localScale;
+            _sequence = DOTween.Sequence().SetAutoKill(false);
+            _sequence.Append(transform.DOScale(originalScale * scaleAmount, animLength));
+            _sequence.Rewind();
+        }
+#endif
     }
 }
