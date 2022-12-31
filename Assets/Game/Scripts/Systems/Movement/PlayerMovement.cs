@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using Game.Scripts.Core;
 using Game.Scripts.Signals;
 using Game.Scripts.Systems.MapSystem;
-using Game.Scripts.Systems.Movement;
-using Game.Signals;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
@@ -13,7 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Game.Scripts.Movement
+namespace Game.Scripts.Systems.Movement
 {
     /// <summary>
     /// Player's responsibilities:
@@ -31,7 +28,7 @@ namespace Game.Scripts.Movement
         [SerializeField] private Vector2 moveInput;
         [SerializeField] private float turnInput;
 
-        [Inject, ShowInInspector] private MapSystem _mapSystem;
+        [Inject, ShowInInspector] private MapSystem.MapSystem _mapSystem;
         [Inject, ShowInInspector] private GameData _gameData;
 
         void Start()
@@ -43,12 +40,12 @@ namespace Game.Scripts.Movement
             localLeft = new Vector2Int(-1, 0);
             moveInput = new Vector2();
             turnInput = 0;
-            _gameData.EnableActionability();
+            _gameData.EnableMovement();
             _mapSystem.RegisterEntity(this);
 
             UnityEngine.Debug.Log(SceneManager.GetActiveScene().name);
             if (SceneManager.GetActiveScene().name != "Labyrinth")
-                _gameData.DisableActionability();
+                _gameData.DisableMovement();
         }
 
         private void Awake()
@@ -122,12 +119,12 @@ namespace Game.Scripts.Movement
 
         private void OnTurnStarted()
         {
-            _gameData.DisableActionability();
+            _gameData.DisableMovement();
         }
 
         private void OnTurnEnded()
         {
-            _gameData.EnableActionability();
+            _gameData.EnableMovement();
             UpdateTileInFrontOfPlayer();
         }
 
@@ -160,7 +157,7 @@ namespace Game.Scripts.Movement
         {
             if (!AllowedToMove()) yield break;
 
-            transform.DOMove(MapSystem.V3IntToV3(intendedPosition), moveTime).SetEase(Ease.OutSine);
+            transform.DOMove(MapSystem.MapSystem.V3IntToV3(intendedPosition), moveTime).SetEase(Ease.OutSine);
             
             OnMoveStarted();
             yield return new WaitForSeconds(moveTime + moveCooldownTime);
@@ -175,15 +172,15 @@ namespace Game.Scripts.Movement
 
         private void OnMoveStarted()
         {
-            _gameData.DisableActionability();
+            _gameData.DisableMovement();
         }
 
         private void OnMoveEnded()
         {
-            moveEnded.Execute(new PlayerMovedEndSignal(MapSystem.V3ToV3Int(transform.position)));
+            moveEnded.Execute(new PlayerMovedEndSignal(MapSystem.MapSystem.V3ToV3Int(transform.position)));
             UpdateTileInFrontOfPlayer();
             isFacingInteractable.Value = tileInFrontOfPlayer.Value.isInteractable;
-            _gameData.EnableActionability();
+            _gameData.EnableMovement();
         }
 
         private void UpdateTileInFrontOfPlayer() => tileInFrontOfPlayer.Value = GetTileInFrontOfPlayer();

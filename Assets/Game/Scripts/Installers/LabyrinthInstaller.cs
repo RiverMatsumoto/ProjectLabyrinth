@@ -3,8 +3,8 @@ using Game.Scripts.Movement;
 using Game.Scripts.Signals;
 using Game.Scripts.Systems.BattleSystem;
 using Game.Scripts.Systems.MapSystem;
+using Game.Scripts.Systems.Movement;
 using Game.Signals;
-using ProjectLabyrinth.Game.UI.PlayerMenu;
 using UnityEngine;
 using Zenject;
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using DG.Tweening;
 using Game.Scripts.Core;
-using ProjectLabyrinth.Game.UI.PlayerMenu;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

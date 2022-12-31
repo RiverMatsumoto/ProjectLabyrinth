@@ -1,4 +1,5 @@
 using Game.Scripts.Systems.BattleSystem;
+using Zenject;
 
 namespace Game.Scripts.Systems.SkillCommands
 {
@@ -6,17 +7,20 @@ namespace Game.Scripts.Systems.SkillCommands
     {
         private IBattleEntity _target;
         private IBattleEntity _user;
-        private AttackData _attackData;
+        private float _attackData;
 
         public AttackCommand(IBattleEntity target, IBattleEntity user)
         {
             _target = target;
             _user = user;
+            _attackData = user.Attack;
         }
         
         public void Execute()
         {
-            UnityEngine.Debug.Log("Attacked enemy");
+            UnityEngine.Debug.Log($"Attacked enemy: {_attackData}");
         }
+        
+        public class Factory : PlaceholderFactory<AttackCommand> { }
     }
 }

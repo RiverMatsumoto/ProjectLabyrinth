@@ -361,7 +361,7 @@ MonoBehaviour:
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
   useUINavigation: 1
-  navigationMode: 4
+  navigationMode: 2
   selectOnUp: {fileID: 0}
   selectOnDown: {fileID: 0}
   selectOnLeft: {fileID: 0}

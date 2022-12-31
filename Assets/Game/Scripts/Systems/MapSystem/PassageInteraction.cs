@@ -1,5 +1,6 @@
 using Game.Scripts.Core;
 using Game.Scripts.Movement;
+using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -19,7 +20,7 @@ namespace Game.Scripts.Systems.MapSystem
         public void Interact(InteractionHandler interactionHandler)
         {
             // screen fade and move player to the other side of the wall
-            _gameData.DisableActionability();
+            _gameData.DisableMovement();
             SceneChanger.Instance.FadeScreen(MovePlayer);
         }
 

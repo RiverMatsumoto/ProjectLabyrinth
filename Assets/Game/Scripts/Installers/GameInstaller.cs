@@ -1,7 +1,7 @@
 using Game.Scripts.Core;
 using Game.Scripts.Systems.DialogueSystem;
 using Game.UI.MainMenu;
-using ProjectLabyrinth.Game.UI.PlayerMenu;
+using Game.UI.PlayerMenu;
 using UnityEngine;
 using Zenject;
 

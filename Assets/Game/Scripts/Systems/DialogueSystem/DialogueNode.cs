@@ -36,8 +36,8 @@ namespace Game.Scripts.Systems.DialogueSystem
         public virtual void TryNextDialogue(int branch = 0)
         {
             subscription.Dispose();
-            if (branches.Count <= 0) return;
-            
+            if (branches.Count == 0) return;
+
             branches[branch].OpenDialogue();
         }
 

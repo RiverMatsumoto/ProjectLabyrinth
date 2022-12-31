@@ -20,12 +20,6 @@ namespace Game.Scripts.Systems.DialogueSystem
             this.textboxes = textboxes;
         }
 
-        // public override void OpenDialogue()
-        // {
-        //     subscription = _dialogueSystem.dialogueSectionFinishedEvent.Subscribe(branch => TryNextDialogue(branch));
-        //     _dialogueSystem.OpenDialogue(this);
-        // }
-
 
         public class Factory : PlaceholderFactory<IList<string>, DialogueDecisionNode> { }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Game.Scripts.Movement;
 using Game.Scripts.Signals;
+using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
@@ -17,7 +18,6 @@ namespace Game.Scripts.Systems.BattleSystem
         public ReactiveCommand stepTaken;
         private Tilemap dangerTilemap; // TODO Inject later. A tilemap with a multiplier that 
         public float dangerMultiplier = 1f;
-
 
         private float _gauge;
         public float gauge

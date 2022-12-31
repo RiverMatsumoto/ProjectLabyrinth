@@ -1,6 +1,7 @@
 using System;
 using Game.Scripts.Movement;
 using Game.Scripts.Systems.MapSystem;
+using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;

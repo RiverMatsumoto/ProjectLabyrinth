@@ -35,7 +35,8 @@ namespace Game.Scripts.Systems.DialogueSystem
         public ReactiveCommand<int> dialogueSectionFinishedEvent;
         private IEnumerator<string> _textboxIter;
         private DialogueNode _currentDialogue;
-        private bool _delayedTextboxActiveInHierarchy;
+        private IDisposable _delayedIsTextboxEnabledObservable;
+        private bool _delayedIsTextboxEnabled;
 
         private void Awake()
         {
@@ -46,33 +47,22 @@ namespace Game.Scripts.Systems.DialogueSystem
         {
             textBox.SetActive(false);
             ApplySettings();
-
-            var delayedTextboxActiveInHierarchyObs = Observable.Create<bool>((observable) =>
+            _delayedIsTextboxEnabledObservable = Observable.EveryUpdate().Delay(TimeSpan.FromMilliseconds(50)).Subscribe(_ =>
             {
-                var interval = Observable.EveryUpdate().Subscribe(_ =>
-                {
-                    observable.OnNext(textBox.activeInHierarchy);
-                });
-
-                return interval;
+                _delayedIsTextboxEnabled = textBox.activeInHierarchy;
             });
 
-            delayedTextboxActiveInHierarchyObs.Delay(TimeSpan.FromMilliseconds(50)).Subscribe(active =>
-            {
-                _delayedTextboxActiveInHierarchy = active;
-            });
         }
 
         [Button]
         public void OpenDialogue(DialogueNode node)
         {
             // store the dialogue to loop through and go to the next dialogue
-            UnityEngine.Debug.Log("Open dialogue");
             _currentDialogue = node;
             _textboxIter = node.textboxes.GetEnumerator();
             _textboxIter.Reset();
             EventSystem.current.SetSelectedGameObject(textBox);
-            _gameData.DisableActionability();
+            _gameData.DisableMovement();
             if (node.dialogueType == DialogueType.DECISION)
                 textAnimatorPlayer.onTextShowed.AddListener(OnDecisionTextboxFinished);
             StartCoroutine(AnimateOpenDialogue());
@@ -91,11 +81,10 @@ namespace Game.Scripts.Systems.DialogueSystem
         public void CloseDialogue(int branch = 0)
         {
             // cast event that the dialogue closed, nodes will listen for this and go to the next dialogue/event
-            UnityEngine.Debug.Log("Close dialogue");
             textBox.SetActive(false);
             text.text = string.Empty;
             _textboxIter.Dispose();
-            _gameData.EnableActionability();
+            _gameData.EnableMovement();
             dialogueSectionFinishedEvent.Execute(branch);
         }
 
@@ -110,7 +99,7 @@ namespace Game.Scripts.Systems.DialogueSystem
         public void OnInteract(InputAction.CallbackContext ctx) // Called by player input
         {
             UnityEngine.Debug.Log("Tried to interact");
-            if (_delayedTextboxActiveInHierarchy && ctx.started)
+            if (_delayedIsTextboxEnabled && ctx.started)
                 InteractWithTextBox();
         }
 
@@ -130,7 +119,7 @@ namespace Game.Scripts.Systems.DialogueSystem
             {
                 textAnimator.ShowAllCharacters(true);
                 if (dialogueDecisionUI.buttons.Count != 0)
-                    EventSystem.current.SetSelectedGameObject(dialogueDecisionUI.buttons[0].gameObject);
+                    dialogueDecisionUI.buttons[1].GetComponent<Button>().Select();
             }
             else if (_currentDialogue.dialogueType != DialogueType.DECISION)
             {
@@ -141,7 +130,6 @@ namespace Game.Scripts.Systems.DialogueSystem
         public void NextTextBox()
         {
             // scroll through the next textbox, do a settings check for scroll speed here
-            UnityEngine.Debug.Log(_textboxIter.Current);
             if (_textboxIter.MoveNext())
                 switch (_currentDialogue.dialogueType)
                 {
@@ -157,7 +145,6 @@ namespace Game.Scripts.Systems.DialogueSystem
                 }
             else
             {
-                UnityEngine.Debug.Log(_textboxIter.Current);
                 CloseDialogue();
             }
         }
