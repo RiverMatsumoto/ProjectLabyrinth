@@ -1,14 +1,20 @@
+using System;
+using System.Collections.Generic;
+using Game.Scripts.Movement;
+using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 namespace Game.Scripts.Systems.MapSystem
 {
-    public class MapSystem : MonoBehaviour
+    public class MapSystem : SerializedMonoBehaviour
     {
-        [SerializeField] private TileDataList tileDataList;
-        [SerializeField] private Tilemap tilemap;
-
+        private TileDataList tileDataList; 
+        public Tilemap tilemap;
+        public List<MapMovement> entities;
+        
 
         /// <summary>
         /// Gets the TileBase at a position
@@ -35,8 +41,27 @@ namespace Game.Scripts.Systems.MapSystem
         /// <returns>A Vector3Int for world space</returns>
         public static Vector3Int Vector2IntToVector3(Vector2Int coordinates) => new Vector3Int(coordinates.x, 0, coordinates.y);
 
+        /// <summary>Helper method to convert Vector3Int to Vector3</summary>
         public static Vector3 V3IntToV3(Vector3Int v3i) => new Vector3(v3i.x, v3i.y, v3i.z);
+        /// <summary>Helper method to convert Vector3 to Vector3Int</summary>
         public static Vector3Int V3ToV3Int(Vector3 v3) => new Vector3Int(Mathf.RoundToInt(v3.x), Mathf.RoundToInt(v3.y), Mathf.RoundToInt(v3.z));
+
+        public void RegisterEntity(MapMovement entity)
+        {
+            entities.Add(entity);
+        }
+
+        public void UnregisterEntity(MapMovement entity)
+        {
+            entities.Remove(entity);
+        }
+
+        public MapMovement TryGetEntity(Vector2Int position)
+        {
+            foreach (var entity in entities)
+                if (entity.position == position) return entity;
+            return null;
+        }
 
         [Button]
         public void LogTile(Vector3 position)

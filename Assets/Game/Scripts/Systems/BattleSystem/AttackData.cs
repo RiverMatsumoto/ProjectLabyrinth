@@ -35,5 +35,10 @@ namespace Game.Scripts.Systems.BattleSystem
             Target = target;
             User = user;
         }
+
+        public override string ToString()
+        {
+            return $"AttackData: [Target = {Target}, User = {User}, ]";
+        }
     }
 }

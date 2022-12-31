@@ -8,8 +8,7 @@ namespace Game.UI.MainMenu
         ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private float moveDistance = 50f;
-        [SerializeField] private float scaleAmount = 1.1f;
-        [SerializeField] private float tweenTime = 0.08f;
+        [SerializeField] private float animLength = 0.08f;
         [SerializeField] private Vector3 originalScale;
         private Sequence _sequence;
 
@@ -19,12 +18,8 @@ namespace Game.UI.MainMenu
             _sequence = DOTween.Sequence().SetAutoKill(false);
             _sequence.Append(transform.DOLocalMoveX(
                     transform.localPosition.x + moveDistance,
-                    tweenTime)
+                    animLength)
                 .SetEase(Ease.OutSine));
-            // _sequence.Append(transform.DOScale(
-            //         originalScale * scaleAmount,
-            //         tweenTime / 2)
-            //     .SetEase(Ease.OutQuart));
             _sequence.Rewind();
         }
 

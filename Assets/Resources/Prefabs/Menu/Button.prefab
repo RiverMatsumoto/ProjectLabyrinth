@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15665191, g: 0.5566038, b: 0, a: 255}
+  m_Color: {r: 1, g: 1, b: 1, a: 255}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 255}
+  m_Color: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -462,13 +462,19 @@ MonoBehaviour:
   useCustomContent: 0
   useCustomIconSize: 0
   useCustomTextSize: 0
-  useUINavigation: 1
   checkForDoubleClick: 0
   enableButtonSounds: 0
   useHoverSound: 1
   useClickSound: 1
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}
+  useUINavigation: 1
+  navigationMode: 3
+  selectOnUp: {fileID: 0}
+  selectOnDown: {fileID: 0}
+  selectOnLeft: {fileID: 0}
+  selectOnRight: {fileID: 0}
+  wrapAround: 0
   useRipple: 1
   doubleClickPeriod: 0.25
   fadingMultiplier: 8
@@ -506,6 +512,7 @@ MonoBehaviour:
   renderOnTop: 1
   centered: 0
   isPreset: 1
+  latestTabIndex: 0
 --- !u!114 &1995599691296577651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: 50
-  tweenTime: 0.15
+  animLength: 0.08
+  originalScale: {x: 0, y: 0, z: 0}
 --- !u!114 &5889568476003555582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15665191, g: 0.5566038, b: 0, a: 255}
+  m_Color: {r: 1, g: 1, b: 1, a: 255}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -816,7 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 255}
+  m_Color: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -909,8 +917,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 255}
+    rgba: 4284435255
+  m_fontColor: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1287,7 +1295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 255}
+  m_Color: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1364,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15665191, g: 0.5566038, b: 0, a: 0.4}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.4}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1477,8 +1485,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 255}
+    rgba: 4284435255
+  m_fontColor: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1690,10 +1698,10 @@ RectTransform:
   m_Father: {fileID: 5889568476003555579}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.65, y: -39.545}
-  m_SizeDelta: {x: 0, y: 79.09}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 140.65, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &5889568477590026555
 CanvasGroup:
@@ -1823,8 +1831,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 255}
+    rgba: 4284435255
+  m_fontColor: {r: 0.21568628, g: 0.29411766, b: 0.37254903, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
