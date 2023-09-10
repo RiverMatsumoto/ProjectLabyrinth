@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Febucci.UI;
 using Game.Scripts.Core;
-using ModestTree;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -27,6 +26,7 @@ namespace Game.Scripts.Systems.DialogueSystem
         public TMP_Text text;
         public Image background;
         public Image border;
+        public Canvas canvas;
         public TextAnimator textAnimator;
         public TextAnimatorPlayer textAnimatorPlayer;
         public DialogueDecisionUI dialogueDecisionUI;
@@ -45,21 +45,23 @@ namespace Game.Scripts.Systems.DialogueSystem
 
         private void Start()
         {
+            text.text = "need to do this to prevent first textbox from being slow";
             textBox.SetActive(false);
+            _delayedIsTextboxEnabled = false;
             ApplySettings();
-            _delayedIsTextboxEnabledObservable = Observable.EveryUpdate().Delay(TimeSpan.FromMilliseconds(50)).Subscribe(_ =>
-            {
-                _delayedIsTextboxEnabled = textBox.activeInHierarchy;
-            });
-
+            _delayedIsTextboxEnabledObservable = Observable.EveryUpdate().Delay(TimeSpan.FromMilliseconds(50))
+                .Subscribe(_ => _delayedIsTextboxEnabled = textBox.activeInHierarchy);
+            canvas = GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
+        
 
         [Button]
         public void OpenDialogue(DialogueNode node)
         {
             // store the dialogue to loop through and go to the next dialogue
             _currentDialogue = node;
-            _textboxIter = node.textboxes.GetEnumerator();
+            _textboxIter = node.Textboxes.GetEnumerator();
             _textboxIter.Reset();
             EventSystem.current.SetSelectedGameObject(textBox);
             _gameData.DisableMovement();
@@ -98,16 +100,15 @@ namespace Game.Scripts.Systems.DialogueSystem
 
         public void OnInteract(InputAction.CallbackContext ctx) // Called by player input
         {
-            UnityEngine.Debug.Log("Tried to interact");
             if (_delayedIsTextboxEnabled && ctx.started)
                 InteractWithTextBox();
         }
 
         public void OnClick(InputAction.CallbackContext ctx)
         {
-            if (!ctx.started) return;
-            if (textBox.activeInHierarchy)
-                InteractWithTextBox();
+            if (!ctx.started || !textBox.activeInHierarchy) return;
+            
+            InteractWithTextBox();
         }
         
         public void InteractWithTextBox()
@@ -117,7 +118,7 @@ namespace Game.Scripts.Systems.DialogueSystem
             ApplySettings();
             if (!textAnimator.allLettersShown)
             {
-                textAnimator.ShowAllCharacters(true);
+                textAnimatorPlayer.SkipTypewriter();
                 if (dialogueDecisionUI.buttons.Count != 0)
                     dialogueDecisionUI.buttons[1].GetComponent<Button>().Select();
             }
@@ -162,7 +163,7 @@ namespace Game.Scripts.Systems.DialogueSystem
         private void NextTextBoxDecisionNode()
         {
             // Display prompt
-            dialogueDecisionUI.DisplayDecision(_currentDialogue.textboxes);
+            dialogueDecisionUI.DisplayDecision(_currentDialogue.Textboxes);
         }
         
         public void ChoseOptionOnDecisionNode(int option)
@@ -198,15 +199,5 @@ namespace Game.Scripts.Systems.DialogueSystem
             textAnimatorPlayer.waitMiddle = speed;
             textAnimatorPlayer.waitForNormalChars = speed;
         }
-        
-
-
-#if UNITY_EDITOR
-        [Button]
-        public void TestDialogue(string text)
-        {
-        }
-
-#endif
     }
 }

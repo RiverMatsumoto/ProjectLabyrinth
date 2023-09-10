@@ -12,27 +12,6 @@ namespace Game.Scripts.Core
         [SerializeField] private Animator animator;
         private bool _doneFadingIn;
 
-        public static SceneChanger Instance
-        {
-            get => _instance;
-        }
-        private static SceneChanger _instance;
-
-
-        private void Start()
-        {
-            DontDestroyOnLoad(rootParent);
-            if (_instance != null)
-            {
-                UnityEngine.Debug.Log("Extra SceneChanger instance disabled/destroyed. Only a single instance is allowed");
-                Destroy(rootParent);
-            }
-            else
-            {
-                _instance = this;
-            }
-        }
-
         public void AddScene(string scene)
         {
             SceneManager.LoadScene(scene, LoadSceneMode.Additive);
@@ -55,7 +34,7 @@ namespace Game.Scripts.Core
         }
 
         // Called by animation event
-        public void FinishedChangingScene()
+        public void OnFadeIn()
         {
             _doneFadingIn = true;
         }

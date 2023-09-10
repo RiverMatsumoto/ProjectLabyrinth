@@ -1,11 +1,14 @@
 using Game.Scripts.Core;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Zenject;
 
 namespace Game.UI.MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
+        [Inject] private SceneChanger _sceneChanger;
+        
         [Button]
         public void QuitGame()
         {
@@ -15,7 +18,7 @@ namespace Game.UI.MainMenu
         [Button]
         public void DebugStart()
         {
-            SceneChanger.Instance.ChangeScene("Town");
+            _sceneChanger.ChangeScene("Town");
         }
     }
 } 

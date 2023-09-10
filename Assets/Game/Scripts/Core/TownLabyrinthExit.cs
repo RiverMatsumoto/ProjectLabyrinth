@@ -6,11 +6,13 @@ namespace Game.Scripts.Core
     public class TownLabyrinthExit : MonoBehaviour
     {
         [Inject] private GameData _gameData;
+        [Inject] private SceneChanger _sceneChanger;
         
         public void EnterLabyrinth(int floor)
         {
+            _gameData.EnableMovement();
             _gameData.currentFloor = floor;
-            SceneChanger.Instance.ChangeScene("Labyrinth");
+            _sceneChanger.ChangeScene("Labyrinth");
         }
     }
 }

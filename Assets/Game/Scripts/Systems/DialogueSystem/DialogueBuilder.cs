@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Game.Scripts.Systems.Commands;
 using Game.Scripts.Systems.SkillCommands;
-using Game.Scripts.Systems.SkillCommands.Factories;
 using Zenject;
 using UniRx;
 
@@ -8,7 +8,6 @@ namespace Game.Scripts.Systems.DialogueSystem
 {
     public class DialogueBuilder
     {
-        private SkillCommandProvider _skillCommandProvider;
         private DialogueNode _start;
         private DialogueNode _current;
         [Inject] private DialogueTextNode.Factory _dialogueTextNodeFactory;
@@ -23,7 +22,7 @@ namespace Game.Scripts.Systems.DialogueSystem
 
         public void OpenDialogue() => _start.OpenDialogue();
 
-        private void AppendNode(DialogueType dialogueType, IList<string> textboxes, ISkillCommand command = null)
+        private void AppendNode(DialogueType dialogueType, IList<string> textboxes, ICommand command = null)
         {
             DialogueNode toAppend = null;
             switch (dialogueType)
@@ -43,7 +42,7 @@ namespace Game.Scripts.Systems.DialogueSystem
 
         public void AppendTextNode(IList<string> textboxes) => AppendNode(DialogueType.TEXT, textboxes);
         public void AppendDecisionNode(IList<string> textboxes) => AppendNode(DialogueType.DECISION, textboxes);
-        public void AppendEventNode(IList<string> textboxes, ISkillCommand command) => AppendNode(DialogueType.EVENT, textboxes, command);
+        public void AppendEventNode(IList<string> textboxes, ICommand command) => AppendNode(DialogueType.EVENT, textboxes, command);
 
         public bool TraverseBranchesFromStart(IList<int> path)
         {
@@ -51,7 +50,7 @@ namespace Game.Scripts.Systems.DialogueSystem
             
             DialogueNode temp = _start;
             foreach (int index in path)
-                temp = temp.branches[index];
+                temp = temp.Branches[index];
 
             _current = temp;
             UnityEngine.Debug.Log($"Current: {_current.ToString()}");

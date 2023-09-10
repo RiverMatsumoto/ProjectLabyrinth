@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Game.Scripts.Core;
-using Game.Scripts.Movement;
 using Game.Scripts.Systems.Movement;
-using GitHub.Unity;
-using Michsky.MUIP;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
@@ -18,15 +14,14 @@ namespace Game.Scripts.Systems.MapSystem
         [Inject] private PlayerMovement _playerMovement;
         [Inject] private TileDataList _tileDataList;
         [Inject] private GameData _gameData;
-        private IObservable<bool> actionabilityHistory;
+        private IDisposable actionabilityHistory;
         private bool _delayedPermitPlayerActionability;
 
         [Button]
         public void OnInteract(InputAction.CallbackContext ctx)
         {
             if (!ctx.started) return;
-            if (!_gameData.permitMovingPlayer || !_delayedPermitPlayerActionability) return;
-            UnityEngine.Debug.Log("Interacted");
+            if (!_delayedPermitPlayerActionability) return;
 
             // Check whether the tile in front is interactable
             RaycastHit hit;
@@ -44,21 +39,8 @@ namespace Game.Scripts.Systems.MapSystem
 
         private void Start()
         {
-            actionabilityHistory = Observable.Create<bool>(
-                (observer) =>
-                {
-                    IDisposable emitter = Observable
-                        .EveryUpdate()
-                        .Subscribe((_) =>
-                        {
-                            observer.OnNext(_gameData.permitMovingPlayer);
-                        });
-
-                    return emitter;
-                });
-
-            actionabilityHistory.Delay(TimeSpan.FromMilliseconds(20))
-                .Subscribe(next => _delayedPermitPlayerActionability = next);
+            actionabilityHistory = Observable.EveryUpdate().Delay(TimeSpan.FromMilliseconds(50))
+                .Subscribe(_ => _delayedPermitPlayerActionability = _gameData.permitMovingPlayer);
         }
     }
 }

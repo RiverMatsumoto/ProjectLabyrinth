@@ -5,9 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Game",
-        "Zenject",
-        "Zenject-TestFramework",
-        "Unity.InputSystem"
+        "Zenject-TestFramework"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -17,7 +15,7 @@
         "nunit.framework.dll",
         "Zenject-usage.dll"
     ],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],

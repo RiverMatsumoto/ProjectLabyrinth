@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Game.Scripts.Systems.Commands;
+using Game.Scripts.Systems.Commands.Factories;
 using Game.Scripts.Systems.MapSystem;
 using Game.Scripts.Systems.SkillCommands;
-using Game.Scripts.Systems.SkillCommands.Factories;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -39,7 +40,7 @@ namespace Game.Scripts.Systems.DialogueSystem.Dialogues.F1
             dialogueBuilder.AppendDecisionNode(decision0);
             dialogueBuilder.TraverseBranchesFromStart(new List<int>() { 0 });
 
-            ISkillCommand enableDialogue = _skillCommandProvider.CreateEnableDialogueCommand(gameObject.GetComponent<BoxCollider>());
+            ICommand enableDialogue = _skillCommandProvider.CreateEnableDialogueCommand(gameObject.GetComponent<BoxCollider>());
             // ISkillCommand giveItem = _skillCommandProvider
         }
 

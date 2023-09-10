@@ -24,5 +24,8 @@ MonoBehaviour:
     - Name: permitMovingPlayer
       Entry: 5
       Data: true
+    - Name: permitInteracting
+      Entry: 5
+      Data: false
   currentFloor: 1
   isInBattle: 0

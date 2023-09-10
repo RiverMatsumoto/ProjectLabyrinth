@@ -1,5 +1,7 @@
 using System.Collections;
 using Game.Scripts.Core;
+using Game.Scripts.Systems.BattleSystem;
+using Game.Scripts.Systems.Data;
 using Michsky.MUIP;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +12,8 @@ namespace Game.UI.PlayerMenu
     public class PlayerMenu : MonoBehaviour
     {
         [Inject] private GameData _gameData;
-        [SerializeField] private WindowManager windowManager;
+        [Inject] private SettingsData _settingsData;
+        [SerializeField] public WindowManager windowManager;
         [SerializeField] private Image background;
         public bool inPlayerMenu;
         public bool canOpenMenu = true;
@@ -30,7 +33,7 @@ namespace Game.UI.PlayerMenu
         // TODO Implement animations instead of simply enabling
         public void OpenMenu()
         {
-            // windowManager.gameObject.SetActive(true);
+            UnityEngine.Debug.Log("Got Here");
             windowManager.OpenWindow("MainPlayerMenu");
             background.gameObject.SetActive(true);
             inPlayerMenu = true;
@@ -50,6 +53,11 @@ namespace Game.UI.PlayerMenu
         {
             yield return new WaitForSeconds(0.2f);
             background.gameObject.SetActive(false);
+        }
+
+        public void SetFpsVisibility(bool visibility)
+        {
+            _settingsData.showFps.Value = visibility;
         }
     }
 }

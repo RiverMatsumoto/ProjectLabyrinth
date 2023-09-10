@@ -1,7 +1,7 @@
-using Game.Scripts.Systems.BattleSystem;
+using Game.Scripts.Systems.Commands;
+using Game.Scripts.Systems.Commands.Factories;
+using Game.Scripts.Systems.Data;
 using Game.Scripts.Systems.SkillCommands;
-using Game.Scripts.Systems.SkillCommands.Factories;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -15,12 +15,11 @@ namespace Game.Scripts.Installers
             // Container.Bind<int>().FromInstance(100).AsSingle().WhenInjectedInto<StaticHealCommand>();
             // Container.Bind<string>().FromInstance("RIVER").AsSingle().WhenInjectedInto<StaticHealCommand>();
             Container.Bind<SkillCommandProvider>().AsSingle();
-            Container.BindFactory<string, int, StaticHealCommand, StaticHealCommand.Factory>().AsSingle().NonLazy();
+            Container.BindFactory<string, int, StaticHealCommand, StaticHealCommand.Factory>().AsSingle();
             Container.BindFactory<float, int, EncounterMultiplier, EncounterMultiplier.Factory>()
-                .AsSingle().NonLazy();
-            Container.BindFactory<AttackCommand, AttackCommand.Factory>().AsSingle().NonLazy();
-            Container.BindFactory<BoxCollider, EnableDialogueCommand, EnableDialogueCommand.Factory>().AsSingle()
-                .NonLazy();
+                .AsSingle();
+            Container.BindFactory<BattleEntity, BattleEntity, AttackCommand, AttackCommand.Factory>().AsSingle();
+            Container.BindFactory<BoxCollider, EnableDialogueCommand, EnableDialogueCommand.Factory>().AsSingle();
         }
     }
 }

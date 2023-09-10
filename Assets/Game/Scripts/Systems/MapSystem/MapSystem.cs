@@ -1,17 +1,14 @@
-using System;
 using System.Collections.Generic;
-using Game.Scripts.Movement;
 using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Zenject;
 
 namespace Game.Scripts.Systems.MapSystem
 {
     public class MapSystem : SerializedMonoBehaviour
     {
-        private TileDataList tileDataList; 
+        [SerializeField] private TileDataList tileDataList; 
         public Tilemap tilemap;
         public List<MapMovement> entities;
         

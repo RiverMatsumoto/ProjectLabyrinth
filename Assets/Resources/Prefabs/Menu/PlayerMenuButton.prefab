@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5889568476003555576, guid: 10cb46e295ed2ac4992894f501e65ac7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5889568476003555578, guid: 10cb46e295ed2ac4992894f501e65ac7, type: 3}
       propertyPath: m_Name
       value: PlayerMenuButton

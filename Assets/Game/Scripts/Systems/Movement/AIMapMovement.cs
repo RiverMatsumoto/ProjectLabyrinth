@@ -1,8 +1,7 @@
-using Game.Scripts.Systems.Movement;
 using Game.Signals;
 using Zenject;
 
-namespace Game.Scripts.Movement
+namespace Game.Scripts.Systems.Movement
 {
     public class AIMapMovement : MapMovement
     {

@@ -34,6 +34,7 @@ namespace Game.Scripts.Systems.Movement
         void Start()
         {
             DOTween.Init();
+            controls = GetComponent<PlayerInput>();
             localForward = new Vector2Int(0, 1);
             localBack = new Vector2Int(0, -1);
             localRight = new Vector2Int(1, 0);
@@ -42,8 +43,8 @@ namespace Game.Scripts.Systems.Movement
             turnInput = 0;
             _gameData.EnableMovement();
             _mapSystem.RegisterEntity(this);
+            transform.position = Vector3.zero;
 
-            UnityEngine.Debug.Log(SceneManager.GetActiveScene().name);
             if (SceneManager.GetActiveScene().name != "Labyrinth")
                 _gameData.DisableMovement();
         }

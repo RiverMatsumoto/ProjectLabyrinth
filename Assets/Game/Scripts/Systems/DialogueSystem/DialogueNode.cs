@@ -12,38 +12,38 @@ namespace Game.Scripts.Systems.DialogueSystem
     [Serializable]
     public class DialogueNode
     {
-        [SerializeField] public IList<DialogueNode> branches;
-        [SerializeField] public IList<string> textboxes;
+        [SerializeField] public IList<DialogueNode> Branches;
+        [SerializeField] public IList<string> Textboxes;
         [SerializeField] public DialogueType dialogueType;
         public const int MAX_CHARS = 400; // Arbitrary, but test max number of characters later with fonts and such
-        protected DialogueSystem _dialogueSystem;
-        protected IDisposable subscription;
+        protected DialogueSystem DialogueSystem;
+        protected IDisposable Subscription;
 
         public DialogueNode(DialogueSystem dialogueSystem, DialogueType dialogueType, IList<string> textboxes = null)
         {
-            _dialogueSystem = dialogueSystem;
+            DialogueSystem = dialogueSystem;
             this.dialogueType = dialogueType;
-            branches = new List<DialogueNode>();
-            this.textboxes = textboxes;
+            Branches = new List<DialogueNode>();
+            this.Textboxes = textboxes;
         }
 
         public virtual void OpenDialogue()
         {
-            subscription = _dialogueSystem.dialogueSectionFinishedEvent.Subscribe(branch => TryNextDialogue(branch));
-            _dialogueSystem.OpenDialogue(this);
+            Subscription = DialogueSystem.dialogueSectionFinishedEvent.Subscribe(branch => TryNextDialogue(branch));
+            DialogueSystem.OpenDialogue(this);
         }
 
         public virtual void TryNextDialogue(int branch = 0)
         {
-            subscription.Dispose();
-            if (branches.Count == 0) return;
+            Subscription.Dispose();
+            if (Branches.Count == 0) return;
 
-            branches[branch].OpenDialogue();
+            Branches[branch].OpenDialogue();
         }
 
         public void AddBranch(DialogueNode node)
         {
-            branches.Add(node);
+            Branches.Add(node);
         }
     }
 }

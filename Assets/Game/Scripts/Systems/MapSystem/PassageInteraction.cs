@@ -1,5 +1,4 @@
 using Game.Scripts.Core;
-using Game.Scripts.Movement;
 using Game.Scripts.Systems.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,6 +10,7 @@ namespace Game.Scripts.Systems.MapSystem
     {
         [ShowInInspector, Inject] private PlayerMovement _playerMovement;
         [Inject] private GameData _gameData;
+        [Inject] private SceneChanger _sceneChanger;
 
         public PassageInteraction(PlayerMovement playerMovement)
         {
@@ -21,7 +21,7 @@ namespace Game.Scripts.Systems.MapSystem
         {
             // screen fade and move player to the other side of the wall
             _gameData.DisableMovement();
-            SceneChanger.Instance.FadeScreen(MovePlayer);
+            _sceneChanger.FadeScreen(MovePlayer);
         }
 
         [Button]

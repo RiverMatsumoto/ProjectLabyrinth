@@ -1,4 +1,3 @@
-using Game.Scripts.Movement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Zenject;
@@ -17,7 +16,12 @@ namespace Game.Scripts.Systems.MapSystem
         public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
         {
             flags = TileFlags.InstantiateGameObjectRuntimeOnly;
-            return base.StartUp(position, tilemap, go);
+            if (go != null)
+            {
+                go.transform.position = new Vector3(position.x, 0, position.y);
+                go.transform.SetPositionAndRotation(go.transform.position, Quaternion.identity);
+            }
+            return true;
         }
     }
 }

@@ -9,11 +9,12 @@ namespace Game.Scripts.Core
     {
         public int currentFloor;
         public bool isInBattle;
-
-        public bool permitMovingPlayer { get; private set; }
+        
+        [OdinSerialize] public bool permitMovingPlayer { get; private set; }
         public void EnableMovement() => permitMovingPlayer = true;
         public void DisableMovement() => permitMovingPlayer = false;
-        public bool permitInteracting { get; private set; }
+        
+        [OdinSerialize] public bool permitInteracting { get; private set; }
         public bool EnableInteracting => permitInteracting = true;
         public bool DisableInteracting => permitInteracting = false;
         

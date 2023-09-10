@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
 
+#if UNITY_EDITOR
 public class UIElementsEditor : EditorWindow
 {
     [MenuItem("Window/UI Toolkit/UIElementsEditor")]
@@ -29,3 +29,4 @@ public class UIElementsEditor : EditorWindow
         Debug.Log(container.panel);
     }
 }
+#endif

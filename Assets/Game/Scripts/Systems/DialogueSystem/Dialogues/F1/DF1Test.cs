@@ -1,8 +1,7 @@
 using System.Collections.Generic;
+using Game.Scripts.Systems.Commands;
+using Game.Scripts.Systems.Commands.Factories;
 using Game.Scripts.Systems.MapSystem;
-using Game.Scripts.Systems.SkillCommands;
-using Game.Scripts.Systems.SkillCommands.Factories;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -30,7 +29,7 @@ namespace Game.Scripts.Systems.DialogueSystem.Dialogues.F1
              *      b. Event
              */
             
-            text.Add("You Encounter Rainbow Colored Spring");
+            text.Add("You encounter a rainbow colored spring");
             dialogueBuilder.InitializeDialogue(text);
             
             decision0.Add("What do you do?");
@@ -41,12 +40,11 @@ namespace Game.Scripts.Systems.DialogueSystem.Dialogues.F1
             healEvent00.Add($"You drank the spring water and your party Healed by {healAmount.ToString()}");
             encounterMultiplierEvent01.Add("You bathed in the spring and monsters are attracted to your smell." +
                                                 " Be careful!");
-            ISkillCommand drinksSpringAndHeals = _skillCommandProvider.CreateStaticHeal("John", healAmount);
-            ISkillCommand bathesSpringAndMonstersAttracted = _skillCommandProvider.CreateEncounterMultiplier(2.0f, 20);
+            ICommand drinksSpringAndHeals = _skillCommandProvider.CreateStaticHeal("John", healAmount);
+            ICommand bathesSpringAndMonstersAttracted = _skillCommandProvider.CreateEncounterMultiplier(2.0f, 20);
             dialogueBuilder.TraverseBranchesFromStart(new List<int> {0});
             dialogueBuilder.AppendEventNode(healEvent00, drinksSpringAndHeals);
             dialogueBuilder.AppendEventNode(encounterMultiplierEvent01, bathesSpringAndMonstersAttracted);
-            
         }
     
         public void Interact(InteractionHandler interactionHandler)

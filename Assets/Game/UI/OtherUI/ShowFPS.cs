@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Game.Scripts.Core;
 using Sirenix.OdinInspector;
@@ -11,32 +12,26 @@ namespace Game.UI.OtherUI
     public class ShowFPS : MonoBehaviour
     {
         [Inject, ShowInInspector] private SettingsData _settingsData;
-        private TMP_Text text;
-        private CompositeDisposable _disposables;
-
+        private TMP_Text _text;
+        private IDisposable _fpsSubscription;
         
-        private void OnEnable()
-        {
-            _disposables = new CompositeDisposable();
-            text = GetComponent<TMP_Text>();
-            _settingsData.showFps.Subscribe(toggle =>
-            {
-                text.enabled = toggle;
-                StartCoroutine(UpdateFps());
-            }).AddTo(_disposables);
-            if (_settingsData.showFps.Value) StartCoroutine(UpdateFps());
-        }
-
-        private void OnDisable() => _disposables.Clear();
-
         private IEnumerator UpdateFps()
         {
             while (_settingsData.showFps.Value)
             {
-                text.text = $"FPS: {1f / Time.unscaledDeltaTime}";
-                yield return new WaitForSeconds(0.05f);
+                _text.text = $"FPS: {(1f / Time.smoothDeltaTime).ToString("F0")}";
+                yield return null;
             }
         }
-        
+
+        private void Start()
+        {
+            _text = GetComponent<TMP_Text>();
+            _fpsSubscription = _settingsData.showFps.Subscribe(visibility =>
+            {
+                _text.enabled = visibility;
+                StartCoroutine(UpdateFps());
+            });
+        }
     }
 }

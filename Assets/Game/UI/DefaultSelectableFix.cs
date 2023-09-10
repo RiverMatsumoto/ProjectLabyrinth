@@ -1,55 +1,69 @@
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Game.UI
 {
     [RequireComponent(typeof(EventSystem))]
     public class DefaultSelectableFix : MonoBehaviour
     {
-        private EventSystem _eventSystem;
-        [SerializeField] private PlayerInput _controls;
-        
-        [Button]
-        public void FindSelectable()
-        {
-            UnityEngine.Debug.Log("Find selectable");
-            GameObject[] selectables = GameObject.FindGameObjectsWithTag("DefaultSelected");
-            List<Button> defaultSelectedButtons = new List<Button>();
-            foreach (var selectable in selectables)
-            {
-                if (selectable.gameObject.activeInHierarchy)
-                    defaultSelectedButtons.Add(selectable.GetComponent<Button>());
-            }
+        [SerializeField] private InputActionReference navigate;
+        [ShowInInspector] private GameObject _lastSelected;
 
-            foreach (var button in defaultSelectedButtons)
+        private void OnEnable()
+        {
+            navigate.action.performed += OnPerformed;
+        }
+
+        private void OnDisable()
+        {
+            navigate.action.performed -= OnPerformed;
+        }
+
+        private void OnPerformed(InputAction.CallbackContext ctx)
+        {
+            if (ShouldTryToSelect())
+                IterateAndSelectGameObject();
+            else
+                CacheCurrentSelected();
+        }
+        
+        private bool ShouldTryToSelect()
+        {
+            GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
+            if (currentSelected != null)
+                if (currentSelected.GetComponent<Selectable>() != null)
+                    return !currentSelected.activeInHierarchy ||
+                           !currentSelected.GetComponent<Selectable>().IsInteractable();
+            return false;
+        }
+
+        private void IterateAndSelectGameObject()
+        {
+            if (_lastSelected != null)
+                if (CanSelect(_lastSelected.GetComponent<Selectable>()))
+                    EventSystem.current.SetSelectedGameObject(_lastSelected.gameObject);
+
+            foreach (Selectable selectable in FindObjectsOfType<Selectable>())
             {
-                if (button)
+                if (CanSelect(selectable))
                 {
-                    button.Select();
+                    EventSystem.current.SetSelectedGameObject(selectable.gameObject);
                 }
             }
+            
         }
 
-        private void Start()
+        private bool CanSelect(Selectable selectable)
         {
-            _eventSystem = GetComponent<EventSystem>();
-            _controls = GetComponent<PlayerInput>();
+            return selectable.IsInteractable() && selectable.isActiveAndEnabled;
         }
 
-        private void Update()
+        private void CacheCurrentSelected()
         {
-            GameObject currentSelected = _eventSystem.currentSelectedGameObject;
-
-            if (_controls.actions["Navigate"].IsPressed() && currentSelected == null)
-                FindSelectable();
-            else if (currentSelected != null)
-                if (!currentSelected.activeInHierarchy)
-                    FindSelectable();
+            _lastSelected = EventSystem.current.currentSelectedGameObject;
         }
     }
 }

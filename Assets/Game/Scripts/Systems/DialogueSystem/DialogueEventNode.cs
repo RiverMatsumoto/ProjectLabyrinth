@@ -1,32 +1,31 @@
 using System.Collections.Generic;
+using Game.Scripts.Systems.Commands;
 using Game.Scripts.Systems.SkillCommands;
-using Mono.CompilerServices.SymbolWriter;
 using UnityEngine;
 using Zenject;
-using System;
 
 namespace Game.Scripts.Systems.DialogueSystem
 {
     public class DialogueEventNode : DialogueNode
     {
-        [SerializeField] private ISkillCommand _command;
+        [SerializeField] private ICommand _command;
 
-        public DialogueEventNode(ISkillCommand command, DialogueSystem ds, IList<string> textboxes = null) 
+        public DialogueEventNode(ICommand command, DialogueSystem ds, IList<string> textboxes = null) 
             : base(ds, DialogueType.EVENT, textboxes)
         {
             _command = command;
-            this.textboxes = textboxes;
+            this.Textboxes = textboxes;
         }
         
         public override void TryNextDialogue(int branch = 0)
         {
             _command.Execute();
-            subscription.Dispose();
-            if (branches.Count <= 0) return;
+            Subscription.Dispose();
+            if (Branches.Count <= 0) return;
             
-            branches[branch].OpenDialogue();
+            Branches[branch].OpenDialogue();
         }
         
-        public class Factory : PlaceholderFactory<IList<string>, ISkillCommand, DialogueEventNode> { }
+        public class Factory : PlaceholderFactory<IList<string>, ICommand, DialogueEventNode> { }
     }
 }

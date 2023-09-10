@@ -1,5 +1,4 @@
 using Game.Scripts.Core;
-using Game.Scripts.Movement;
 using Game.Scripts.Signals;
 using Game.Scripts.Systems.BattleSystem;
 using Game.Scripts.Systems.MapSystem;
@@ -12,23 +11,20 @@ namespace Game.Scripts.Installers
 {
     public class LabyrinthInstaller : MonoInstaller
     {
-        [SerializeField] private MapSystem _mapSystem;
-        [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private TileDataList _tileDataList;
-        [SerializeField] private InteractionHandler _interactionHandler;
-        [SerializeField] private EncounterSystem _encounterSystem;
-        
-        //Tiles
-        [SerializeField] private GameObject passageTile;
+        [SerializeField] private InteractionHandler interactionHandler;
+        [SerializeField] private GameObject mapSystem;
+        [SerializeField] private GameObject playerMovement;
+        [SerializeField] private GameObject encounterSystem;
     
         public override void InstallBindings()
         {
-            FindSystemsInHierarchy();
-            Container.Bind<MapSystem>().FromInstance(_mapSystem).AsSingle();
-            Container.Bind<PlayerMovement>().FromInstance(playerMovement).AsSingle();
-            Container.Bind<TileDataList>().FromInstance(_tileDataList).AsSingle();
-            Container.Bind<InteractionHandler>().FromInstance(_interactionHandler).AsSingle();
-            Container.Bind<EncounterSystem>().FromInstance(_encounterSystem).AsSingle();
+            
+            // Container.Bind<MapSystem>().FromComponentInNewPrefab(mapSystem).AsSingle().NonLazy();
+            //
+            // Container.Bind<PlayerMovement>().FromComponentInNewPrefab(playerMovement).AsSingle().NonLazy();
+            // Container.Bind<EncounterSystem>().FromComponentInNewPrefab(encounterSystem).AsSingle().NonLazy();
+            
+            Container.Bind<InteractionHandler>().FromInstance(interactionHandler).AsSingle();
             InstallSignals();
             InstallTiles();
             
@@ -46,13 +42,6 @@ namespace Game.Scripts.Installers
         private void InstallTiles()
         {
             // Container.Bind<PassageTile>().FromComponentInNewPrefab(passageTile).AsSingle();
-        }
-
-        private void FindSystemsInHierarchy()
-        {
-            _encounterSystem = FindObjectOfType<EncounterSystem>();
-            playerMovement = FindObjectOfType<PlayerMovement>();
-            _mapSystem = FindObjectOfType<MapSystem>();
         }
     }
 }
