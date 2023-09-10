@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4080c472734c13b73a42def6cd974a, type: 3}
+  m_Name: Cure
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: isInterested
+      Entry: 6
+      Data: 
+    - Name: onReact
+      Entry: 6
+      Data: 
+  name: Cure
+  description: Heal a party member
+  speed: 0
+  targettingBehavior: {fileID: 11400000, guid: 25a872202ddb8ab42bb68d6dd5e56322, type: 2}
+  targetType: {fileID: 11400000, guid: e930029f9aa6716429a91a316c8bf760, type: 2}
+  reactiveSkill: 0
